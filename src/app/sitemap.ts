@@ -35,7 +35,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
   ];
-  const sitemap = [...defaultPages, ...(await GetBlogPosts())];
+  let blogPosts: MetadataRoute.Sitemap = [];
+  try {
+    blogPosts = await GetBlogPosts();
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn("Sitemap: failed to fetch blog posts, skipping.", err);
+    blogPosts = [];
+  }
+
+  const sitemap = [...defaultPages, ...blogPosts];
 
   return sitemap;
 }
