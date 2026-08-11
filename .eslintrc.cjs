@@ -1,8 +1,11 @@
-/** @type {import("eslint").Linter.Config} */
+/** @type {import("eslint").ESLint.ConfigData} */
 const config = {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": true
+    "project": ["./tsconfig.json"],
+    "tsconfigRootDir": __dirname,
+    "ecmaVersion": 2020,
+    "sourceType": "module"
   },
   "plugins": [
     "@typescript-eslint",
